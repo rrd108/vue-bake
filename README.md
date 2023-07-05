@@ -13,11 +13,11 @@ composer require rrd108/vue-bake
 ## Bake VueJs components
 
 ```
-bin/cake bake vue_component `ModelName` `ts` `../frontentd/src/components`
+bin/cake bake vue_component `ModelName` `-l ts` `-p ../frontentd/src/components`
 ```
 
 Where
 
--   `ModelName` is the name of the model to bake components for
--   `ts` is the language. Defaults to `js`. Available languages are `js` and `ts`
--   `../frontentd/src/components` path to where the output file should saved. Relative to `src`.
+- `ModelName` is the name of the model to bake components for
+- `-l` or `--lang` is the language. Defaults to `js`. Available languages are `js` and `ts`
+- `-p` or `--path` `../frontentd/src/components` path to where the output file should saved. Relative to `src`.

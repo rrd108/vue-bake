@@ -39,11 +39,14 @@ class VueComponentCommand extends SimpleBakeCommand
     {
         $parser = parent::buildOptionParser($parser);
 
-        $parser->addArgument('lang', [
+        $parser->addOption('lang', [
+            'short' => 'l',
             'choices' => ['js', 'ts'],
+            'default' => 'js',
             'help' => 'The language of the component. Available options are js and ts.'
         ]);
-        $parser->addArgument('path', [
+        $parser->addOption('path', [
+            'short' => 'p',
             'help' => 'The save path to the component. Defaults to /src/VueComponents/'
         ]);
 
@@ -52,8 +55,8 @@ class VueComponentCommand extends SimpleBakeCommand
 
     public function execute(Arguments $args, ConsoleIo $io): null|int
     {
-        if ($args->hasArgument('path')) {
-            $this->pathFragment = rtrim($args->getArgument('path'), '/') . '/';
+        if ($args->hasOption('path')) {
+            $this->pathFragment = rtrim($args->getOption('path'), '/') . '/';
         }
 
         $this->modelName = $args->getArgument('name');
@@ -63,7 +66,7 @@ class VueComponentCommand extends SimpleBakeCommand
 
     public function templateData(Arguments $arguments): array
     {
-        $lang = $arguments->getArgument('lang');
+        $lang = $arguments->getOption('lang');
         $vars = $this->_loadController();
 
         return [
@@ -76,11 +79,11 @@ class VueComponentCommand extends SimpleBakeCommand
     {
         if ($this->getTableLocator()->exists($this->modelName)) {
             $modelObject = $this->getTableLocator()->get($this->modelName);
-        } else {
+        } /*else {
             $modelObject = $this->getTableLocator()->get($this->modelName, [
                 'connectionName' => $this->connection,
             ]);
-        }
+        }*/
 
         /*$primaryKey = $displayField = $singularVar = $singularHumanName = null;
         $schema = $fields = $hidden = $modelClass = null;
@@ -116,7 +119,7 @@ class VueComponentCommand extends SimpleBakeCommand
 
         return compact(
             'modelObject',
-            'modelClass',
+            /* 'modelClass',
             'entityClass',
             'schema',
             'primaryKey',
@@ -129,7 +132,7 @@ class VueComponentCommand extends SimpleBakeCommand
             'hidden',
             'associations',
             'keyFields',
-            'namespace'
+            'namespace'*/
         );
     }
 }
