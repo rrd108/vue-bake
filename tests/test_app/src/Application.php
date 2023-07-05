@@ -28,8 +28,9 @@ class Application extends BaseApplication
         return $commands;
     }
 
-    protected function bootstrapCli(): void
+    public function bootstrap(): void
     {
+        parent::bootstrap();
         $this->addPlugin('Bake');
     }
 }
