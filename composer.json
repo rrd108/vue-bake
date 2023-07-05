@@ -1,0 +1,30 @@
+{
+    "name": "rrd108/vue-bake",
+    "description": "CakePHP Plugin for Baking Vue Components",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "plugin"
+    ],
+    "license": "MIT",
+    "require-dev": {
+        "cakephp/cakephp": "^4.0",
+        "phpunit/phpunit": "^8.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "VueBake\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VueBake\\Test\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "rrd",
+            "email": "rrd@webmania.cc"
+        }
+    ]
+}
