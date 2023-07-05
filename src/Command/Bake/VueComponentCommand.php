@@ -6,7 +6,7 @@ namespace VueBake\Command\Bake;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
-use Bake\Command\TemplateCommand;
+use Cake\Utility\Inflector;
 use Bake\Command\SimpleBakeCommand;
 use Cake\Console\ConsoleOptionParser;
 
@@ -17,7 +17,6 @@ class VueComponentCommand extends SimpleBakeCommand
 
     public function __construct()
     {
-        $this->templateCommand = new TemplateCommand();
     }
 
     public function name(): string
@@ -61,13 +60,25 @@ class VueComponentCommand extends SimpleBakeCommand
 
         $this->modelName = $args->getArgument('name');
 
-        return parent::execute($args, $io);
+        $methods = ['index', 'add'];
+        $vars = $this->_loadController();
+        foreach ($methods as $method) {
+            $renderer = $this->createTemplateRenderer()
+                ->set('action', $method)
+                ->set('plugin', $this->plugin)
+                ->set($vars);
+
+            $filename = APP_DIR . DS . $this->pathFragment .  $this->modelName . Inflector::camelize($method) . '.vue';
+            $content = $renderer->generate('VueBake.vueComponentTemplate.' . $method);
+            $io->createFile($filename, $content);
+        }
+
+        return static::CODE_SUCCESS;
     }
 
     public function templateData(Arguments $arguments): array
     {
         $lang = $arguments->getOption('lang');
-        $vars = $this->_loadController();
 
         return [
             'lang' => $lang,
@@ -79,11 +90,11 @@ class VueComponentCommand extends SimpleBakeCommand
     {
         if ($this->getTableLocator()->exists($this->modelName)) {
             $modelObject = $this->getTableLocator()->get($this->modelName);
-        } /*else {
+        } else {
             $modelObject = $this->getTableLocator()->get($this->modelName, [
                 'connectionName' => $this->connection,
             ]);
-        }*/
+        }
 
         /*$primaryKey = $displayField = $singularVar = $singularHumanName = null;
         $schema = $fields = $hidden = $modelClass = null;
