@@ -60,8 +60,9 @@ class VueComponentCommand extends SimpleBakeCommand
 
         $this->modelName = $args->getArgument('name');
 
-        $methods = ['index', 'add'];
-        $vars = $this->_loadController();
+        $methods = ['index', 'add', 'edit', 'view'];
+        $vars = $this->getVars() + ['lang' => $args->getOption('lang')];
+
         foreach ($methods as $method) {
             $renderer = $this->createTemplateRenderer()
                 ->set('action', $method)
@@ -85,9 +86,10 @@ class VueComponentCommand extends SimpleBakeCommand
         ];
     }
 
-    // This is TemplateCommand's _loadController's copy
-    protected function _loadController(): array
+    // Based on TemplateCommand's _loadController
+    protected function getVars(): array
     {
+
         if ($this->getTableLocator()->exists($this->modelName)) {
             $modelObject = $this->getTableLocator()->get($this->modelName);
         } else {
