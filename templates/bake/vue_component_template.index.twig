@@ -1,8 +1,42 @@
 <script setup{% if lang == 'ts' %} lang="ts"{% endif %}>
+  import { ref } from 'vue'
+  import axios from 'axios'
+  {% if lang == 'ts' %}import {{singularHumanName}} from '@/types/{{singularHumanName}}'{% endif %}
+
+
+  const {{ pluralVar }} = ref{% if lang == 'ts' %}<{{singularHumanName}}[]>{% endif %}([])
+
+  axios
+    .get(`${import.meta.env.VITE_APP_API_URL}{{ pluralVar }}.json`)
+    .then(res => ({{ pluralVar }}.value = res.data.{{ pluralVar }}))
+    .catch(err => console.error(err))
 </script>
 
 <template>
+  <section>
+    <h2>{{ pluralHumanName }}</h2>
+    <ul>
+      <li>
+      {% for field in fields %}
+          <span>{{ field }}</span>
+      {% endfor %}
+      </li>
+      <li v-for="{{singularVar}} in {{ pluralVar }}">
+      {% for field in fields %}
+        {% if field == 'id' %}
+          <router-link :to="`/{{ pluralVar }}/${{ '{' ~ singularVar ~ '.' ~ field ~ '}' | raw}}`">{{ '{{ ' ~ singularVar ~ '.' ~ field ~ ' }}' | raw }}</router-link>
+        {% else %}
+        <span>{{ '{{ ' ~ singularVar ~ '.' ~ field ~ ' }}' | raw }}</span>
+        {% endif %}
+      {% endfor %}
+      </li>
+    </ul>
+  </section>
 </template>
 
 <style scoped>
+ul {
+  display:flex;
+  gap: .5em;
+}
 </style>

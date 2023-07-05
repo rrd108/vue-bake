@@ -77,14 +77,14 @@ class VueComponentCommand extends SimpleBakeCommand
         return static::CODE_SUCCESS;
     }
 
-    public function templateData(Arguments $arguments): array
-    {
-        $lang = $arguments->getOption('lang');
+    // public function templateData(Arguments $arguments): array
+    // {
+    //     $lang = $arguments->getOption('lang');
 
-        return [
-            'lang' => $lang,
-        ];
-    }
+    //     return [
+    //         'lang' => $lang,
+    //     ];
+    // }
 
     // Based on TemplateCommand's _loadController
     protected function getVars(): array
@@ -98,23 +98,21 @@ class VueComponentCommand extends SimpleBakeCommand
             ]);
         }
 
-        /*$primaryKey = $displayField = $singularVar = $singularHumanName = null;
-        $schema = $fields = $hidden = $modelClass = null;
         try {
-            $primaryKey = (array)$modelObject->getPrimaryKey();
-            $displayField = $modelObject->getDisplayField();
-            $singularVar = $this->_singularName($this->controllerName);
-            $singularHumanName = $this->_singularHumanName($this->controllerName);
+            //$primaryKey = (array)$modelObject->getPrimaryKey();
+            //$displayField = $modelObject->getDisplayField();
+            $singularVar = $this->_singularName($this->modelName);
+            $singularHumanName = $this->_singularHumanName($this->modelName);
             $schema = $modelObject->getSchema();
             $fields = $schema->columns();
-            $hidden = $modelObject->newEmptyEntity()->getHidden() ?: ['token', 'password', 'passwd'];
-            $modelClass = $this->modelName;
+            //$hidden = $modelObject->newEmptyEntity()->getHidden() ?: ['token', 'password', 'passwd'];
+            //$modelClass = $this->modelName;
         } catch (\Exception $exception) {
-            $io->error($exception->getMessage());
+            //$io->error($exception->getMessage());
             $this->abort();
         }
 
-        [, $entityClass] = namespaceSplit($this->_entityName($this->modelName));
+        /*[, $entityClass] = namespaceSplit($this->_entityName($this->modelName));
         $entityClass = sprintf('%s\Model\Entity\%s', $namespace, $entityClass);
         if (!class_exists($entityClass)) {
             $entityClass = EntityInterface::class;
@@ -125,23 +123,23 @@ class VueComponentCommand extends SimpleBakeCommand
             foreach ($associations['BelongsTo'] as $assoc) {
                 $keyFields[$assoc['foreignKey']] = $assoc['variable'];
             }
-        }
+        }*/
 
-        $pluralVar = Inflector::variable($this->controllerName);
-        $pluralHumanName = $this->_pluralHumanName($this->controllerName);*/
+        $pluralVar = Inflector::variable($this->modelName);
+        $pluralHumanName = $this->_pluralHumanName($this->modelName);
 
         return compact(
             'modelObject',
+            'pluralHumanName',
+            'fields',
+            'pluralVar',
+            'singularVar',
+            'singularHumanName',
             /* 'modelClass',
             'entityClass',
             'schema',
             'primaryKey',
             'displayField',
-            'singularVar',
-            'pluralVar',
-            'singularHumanName',
-            'pluralHumanName',
-            'fields',
             'hidden',
             'associations',
             'keyFields',
