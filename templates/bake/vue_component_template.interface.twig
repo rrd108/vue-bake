@@ -1,0 +1,8 @@
+interface {{ singularHumanName }} {
+{% for field in fields %}
+    {% set columnData = Bake.columnData(field, schema) %}
+    {{ field }}: {% if columnData.type in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %}number{% else %}{{ columnData.type }}{% endif %} 
+{% endfor %}
+}
+
+export default {{ singularHumanName }}

@@ -58,10 +58,12 @@ class VueComponentCommand extends SimpleBakeCommand
             $this->pathFragment = rtrim($args->getOption('path'), '/') . '/';
         }
 
+        $lang = $args->getOption('lang');
+
         $this->modelName = $args->getArgument('name');
 
         $methods = ['index', 'add', 'edit', 'view'];
-        $vars = $this->getVars() + ['lang' => $args->getOption('lang')];
+        $vars = $this->getVars() + ['lang' => $lang];
 
         foreach ($methods as $method) {
             $renderer = $this->createTemplateRenderer()
@@ -72,6 +74,10 @@ class VueComponentCommand extends SimpleBakeCommand
             $filename = APP_DIR . DS . $this->pathFragment .  $this->modelName . Inflector::camelize($method) . '.vue';
             $content = $renderer->generate('VueBake.vueComponentTemplate.' . $method);
             $io->createFile($filename, $content);
+        }
+
+        if ($lang == 'ts') {
+            $this->generateTypescriptInterface($io, $vars);
         }
 
         return static::CODE_SUCCESS;
@@ -135,9 +141,9 @@ class VueComponentCommand extends SimpleBakeCommand
             'pluralVar',
             'singularVar',
             'singularHumanName',
+            'schema'
             /* 'modelClass',
             'entityClass',
-            'schema',
             'primaryKey',
             'displayField',
             'hidden',
@@ -145,5 +151,16 @@ class VueComponentCommand extends SimpleBakeCommand
             'keyFields',
             'namespace'*/
         );
+    }
+
+    protected function generateTypescriptInterface($io, $vars)
+    {
+        debug($vars['schema']);
+        $renderer = $this->createTemplateRenderer()
+            ->set($vars);
+
+        $filename = APP_DIR . DS . $this->pathFragment .  $this->modelName . 'Interface.ts';
+        $content = $renderer->generate('VueBake.vueComponentTemplate.interface');
+        $io->createFile($filename, $content);
     }
 }
