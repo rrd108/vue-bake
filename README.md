@@ -53,7 +53,7 @@ bin/cake bake vue_component `ModelName` `-l ts` `-p ../frontend/src/components`
 
 - `ModelName`: Specify the name of the model for which you want to generate components. For example, if you want to bake components for the `Posts` model, replace `ModelName` with `Posts`.
 
-- `-l` or `--lang`: (Optional) Specify the language for the generated components. By default, it is set to `js`. However, you can choose `ts` for TypeScript. For instance, use `-l ts` to generate components using TypeScript.
+- `-l` or `--lang`: (Optional) Specify the language for the generated components. By default, it is set to `js` (JavaScript). However, you can choose `ts` for TypeScript. For instance, use `-l ts` to generate components using TypeScript.
 
 - `-p` or `--path`: (Optional) Provide the path where the output file should be saved. The path should be relative to the `src` directory. For example, `-p ../frontend/src/components` specifies that the generated components should be saved in the `src/components` directory of the `frontend` folder.
 
