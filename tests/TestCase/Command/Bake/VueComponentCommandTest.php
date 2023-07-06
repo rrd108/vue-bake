@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace VueBake\Test\Command\Bake;
 
-use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-use Cake\Datasource\ConnectionManager;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
 
 class VueComponentCommandTest extends TestCase
@@ -18,6 +16,8 @@ class VueComponentCommandTest extends TestCase
     protected $fixtures = [
         'plugin.VueBake.Posts',
     ];
+
+    private $basePath = PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS;
 
     public function setUp(): void
     {
@@ -40,10 +40,10 @@ class VueComponentCommandTest extends TestCase
     {
         $this->exec('bake vue_component Posts --lang ts');
         $this->assertExitSuccess();
-        $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsIndex.vue');
-        $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsAdd.vue');
-        $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsEdit.vue');
-        $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsView.vue');
+        $this->assertFileExists($this->basePath . 'PostsIndex.vue');
+        $this->assertFileExists($this->basePath . 'PostsAdd.vue');
+        $this->assertFileExists($this->basePath . 'PostsEdit.vue');
+        $this->assertFileExists($this->basePath . 'PostsView.vue');
     }
 
     public function testExecuteFilesCreatedWithPath()
@@ -57,7 +57,7 @@ class VueComponentCommandTest extends TestCase
     {
         $this->exec('bake vue_component Posts --lang js');
         $this->assertExitSuccess();
-        $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsIndex.vue');
+        $content = file_get_contents($this->basePath . 'PostsIndex.vue');
         $this->assertStringContainsString('<script setup>', $content);
         $this->assertStringContainsString('.then(res => (posts.value = res.data.posts))', $content);
         $this->assertStringContainsString('<span>id</span>', $content);
@@ -72,7 +72,7 @@ class VueComponentCommandTest extends TestCase
         $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsIndex.vue');
         $this->assertStringContainsString('<script setup lang="ts">', $content);
         $this->assertStringContainsString('import Post from \'@/types/Post\'', $content);
-        $this->assertStringContainsString('  const posts = ref<Post[]>([])', $content);
+        $this->assertStringContainsString('const posts = ref<Post[]>([])', $content);
         $this->assertStringContainsString('.then(res => (posts.value = res.data.posts))', $content);
         $this->assertStringContainsString('<span>id</span>', $content);
         $this->assertStringContainsString('<router-link :to="`/posts/${post.id}`">{{ post.id }}</router-link>', $content);
