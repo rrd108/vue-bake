@@ -50,7 +50,7 @@ protected function bootstrapCli(): void
 ## Bake VueJs components
 
 ```
-bin/cake bake vue_component `ModelName` `-l ts` `-p ../frontend/src/components`
+bin/cake bake vue_component ModelName -l ts -p ../frontend/src/components
 ```
 
 - `ModelName`: Specify the name of the model for which you want to generate components. For example, if you want to bake components for the `Posts` model, replace `ModelName` with `Posts`.
