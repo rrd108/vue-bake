@@ -83,15 +83,6 @@ class VueComponentCommand extends SimpleBakeCommand
         return static::CODE_SUCCESS;
     }
 
-    // public function templateData(Arguments $arguments): array
-    // {
-    //     $lang = $arguments->getOption('lang');
-
-    //     return [
-    //         'lang' => $lang,
-    //     ];
-    // }
-
     // Based on TemplateCommand's _loadController
     protected function getVars(): array
     {
@@ -105,7 +96,7 @@ class VueComponentCommand extends SimpleBakeCommand
         }
 
         try {
-            //$primaryKey = (array)$modelObject->getPrimaryKey();
+            $primaryKey = (array)$modelObject->getPrimaryKey();
             //$displayField = $modelObject->getDisplayField();
             $singularVar = $this->_singularName($this->modelName);
             $singularHumanName = $this->_singularHumanName($this->modelName);
@@ -141,10 +132,10 @@ class VueComponentCommand extends SimpleBakeCommand
             'pluralVar',
             'singularVar',
             'singularHumanName',
-            'schema'
+            'schema',
+            'primaryKey',
             /* 'modelClass',
             'entityClass',
-            'primaryKey',
             'displayField',
             'hidden',
             'associations',

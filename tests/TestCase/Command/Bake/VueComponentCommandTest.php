@@ -78,6 +78,23 @@ class VueComponentCommandTest extends TestCase
         $this->assertStringContainsString('<router-link :to="`/posts/${post.id}`">{{ post.id }}</router-link>', $content);
     }
 
+    public function testExecuteViewFileContentTs()
+    {
+        $this->exec('bake vue_component Posts --lang ts');
+        $this->assertExitSuccess();
+        $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS .  'PostInterface.ts');
+        $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsView.vue');
+        $this->assertStringContainsString('<script setup lang="ts">', $content);
+        $this->assertStringContainsString('import Post from \'@/types/Post\'', $content);
+
+        $this->assertStringContainsString('const post = ref<Post>()', $content);
+        $this->assertStringContainsString('.then(res => (post.value = res.data.post))', $content);
+        $this->assertStringContainsString('const route = useRoute()', $content);
+        $this->assertStringContainsString('.get(`${import.meta.env.VITE_APP_API_URL}post/${route.params.id}.json`)', $content);
+        $this->assertStringContainsString('<dt>id</dt>', $content);
+        $this->assertStringContainsString('<dd>{{ post.id }}</dd>', $content);
+    }
+
     private function removeTestGeneratedFiles($directoryPath)
     {
         $iterator = new RecursiveIteratorIterator(

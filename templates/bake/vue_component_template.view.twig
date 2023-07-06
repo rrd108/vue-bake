@@ -1,7 +1,30 @@
 <script setup{% if lang == 'ts' %} lang="ts"{% endif %}>
+  import { ref } from 'vue'
+  import axios from 'axios'
+  import { useRoute } from 'vue-router'
+  {% if lang == 'ts' %}import {{singularHumanName}} from '@/types/{{singularHumanName}}'{% endif %} 
+
+  const route = useRoute()
+
+  const {{ singularVar }} = ref{% if lang == 'ts' %}<{{singularHumanName}}>{% endif %}()
+
+  axios
+    .get(`${import.meta.env.VITE_APP_API_URL}{{ singularVar }}/${route.params.id}.json`)
+    .then(res => ({{ singularVar }}.value = res.data.{{ singularVar }}))
+    .catch(err => console.error(err))
 </script>
 
 <template>
+  <section>
+    <h2>{{ singularHumanName }}</h2>
+
+    <dl>
+      {% for field in fields %}
+        <dt>{{ field }}</dt>
+        <dd>{{ '{{ ' ~ singularVar ~ '.' ~ field ~ ' }}' | raw }}</dd>
+      {% endfor %}
+    </dl>
+  </section>
 </template>
 
 <style scoped>
