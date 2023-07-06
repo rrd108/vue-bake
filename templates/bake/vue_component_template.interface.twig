@@ -1,7 +1,12 @@
 interface {{ singularHumanName }} {
 {% for field in fields %}
-    {% set columnData = Bake.columnData(field, schema) %}
-    {{ field }}: {% if columnData.type in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %}number{% else %}{{ columnData.type }}{% endif %} 
+  {% set columnData = Bake.columnData(field, schema) %}
+  {{ field }}: {%~ if columnData.type in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %} number
+  {%~ elseif columnData.type == 'uuid' %} string
+  {%~ elseif columnData.type == 'datetime' %} Date
+  {%~ elseif columnData.type == 'binary' %} Blob
+  {%~ else %} {{ columnData.type }}
+  {%~ endif -%} 
 {% endfor %}
 }
 
