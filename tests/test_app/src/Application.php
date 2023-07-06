@@ -8,7 +8,6 @@ use Cake\Console\CommandCollection;
 use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\RouteBuilder;
-use CakeDumpSql\Command\DumpSqlCommand;
 
 class Application extends BaseApplication
 {
@@ -32,5 +31,6 @@ class Application extends BaseApplication
     {
         parent::bootstrap();
         $this->addPlugin('Bake');
+        $this->addPlugin('VueBake');
     }
 }
