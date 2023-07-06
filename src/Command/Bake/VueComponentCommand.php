@@ -155,7 +155,6 @@ class VueComponentCommand extends SimpleBakeCommand
 
     protected function generateTypescriptInterface($io, $vars)
     {
-        debug($vars['schema']);
         $renderer = $this->createTemplateRenderer()
             ->set($vars);
 

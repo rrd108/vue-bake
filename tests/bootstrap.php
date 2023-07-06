@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -49,7 +50,11 @@ if (file_exists($root . '/config/bootstrap.php')) {
  * using migrations to provide schema for your plugin,
  * and using \Migrations\TestSuite\Migrator to load schema.
  */
+
 use Cake\TestSuite\Fixture\SchemaLoader;
+
 
 // Load a schema dump file.
 (new SchemaLoader())->loadSqlFiles('tests/schema.sql', 'test');
+
+define('PLUGIN_TESTS', $root . DS . 'tests' . DS);
