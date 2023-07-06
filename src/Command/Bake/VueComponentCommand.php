@@ -158,7 +158,7 @@ class VueComponentCommand extends SimpleBakeCommand
         $renderer = $this->createTemplateRenderer()
             ->set($vars);
 
-        $filename = APP_DIR . DS . $this->pathFragment .  $this->modelName . 'Interface.ts';
+        $filename = APP_DIR . DS . $this->pathFragment .  $this->_singularHumanName($this->modelName) . 'Interface.ts';
         $content = $renderer->generate('VueBake.vueComponentTemplate.interface');
         $io->createFile($filename, $content);
     }

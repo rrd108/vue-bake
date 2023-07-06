@@ -36,15 +36,46 @@ class VueComponentCommandTest extends TestCase
         $this->removeTestGeneratedFiles(PLUGIN_TESTS . '..' . DS . 'TestApp');
     }
 
-    public function testExecute(): void
+    public function testExecuteFilesCreated(): void
     {
         $this->exec('bake vue_component Posts --lang ts');
         $this->assertExitSuccess();
-        // Assert the generated files exist in the expected path
         $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsIndex.vue');
         $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsAdd.vue');
         $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsEdit.vue');
         $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsView.vue');
+    }
+
+    public function testExecuteFilesCreatedWithPath()
+    {
+        $this->exec('bake vue_component Posts --lang ts --path tmp');
+        $this->assertExitSuccess();
+        $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'tmp' . DS . 'PostsIndex.vue');
+    }
+
+    public function testExecuteIndexFileContentJs()
+    {
+        $this->exec('bake vue_component Posts --lang js');
+        $this->assertExitSuccess();
+        $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsIndex.vue');
+        $this->assertStringContainsString('<script setup>', $content);
+        $this->assertStringContainsString('.then(res => (posts.value = res.data.posts))', $content);
+        $this->assertStringContainsString('<span>id</span>', $content);
+        $this->assertStringContainsString('<router-link :to="`/posts/${post.id}`">{{ post.id }}</router-link>', $content);
+    }
+
+    public function testExecuteIndexFileContentTs()
+    {
+        $this->exec('bake vue_component Posts --lang ts');
+        $this->assertExitSuccess();
+        $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS .  'PostInterface.ts');
+        $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsIndex.vue');
+        $this->assertStringContainsString('<script setup lang="ts">', $content);
+        $this->assertStringContainsString('import Post from \'@/types/Post\'', $content);
+        $this->assertStringContainsString('  const posts = ref<Post[]>([])', $content);
+        $this->assertStringContainsString('.then(res => (posts.value = res.data.posts))', $content);
+        $this->assertStringContainsString('<span>id</span>', $content);
+        $this->assertStringContainsString('<router-link :to="`/posts/${post.id}`">{{ post.id }}</router-link>', $content);
     }
 
     private function removeTestGeneratedFiles($directoryPath)
