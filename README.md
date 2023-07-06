@@ -16,7 +16,7 @@ By leveraging the power of CakePHP's backend as a REST API and combining it with
 
 3. **Customization Options**: We understand that each project is unique, and that's why our plugin offers various customization options. Tailor the generated Vue components to match your specific requirements, ensuring a perfect fit for your application.
 
-4. **JavaScript and TypeScript Support**: Our plugin supports both JavaScript and TypeScript, allowing you to choose the language that best suits your project.
+4. **JavaScript and TypeScript Support**: Our plugin supports both JavaScript and TypeScript, allowing you to choose the language that best suits your project. The plugin generates Typescript interfaces for your models, making it easy to work with TypeScript.
 
 5. **Time and Effort Savings**: With the CakePHP VueBake Plugin, you can significantly reduce development time and effort. Spend less time on boilerplate code and more time on building innovative features and delivering value to your users.
 
