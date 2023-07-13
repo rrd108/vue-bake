@@ -64,11 +64,21 @@ class VueComponentCommandTest extends TestCase
         $this->assertStringContainsString('<router-link :to="`/posts/${post.id}`">{{ post.id }}</router-link>', $content);
     }
 
-    public function testExecuteIndexFileContentTs()
+    public function testExecuteInterfaceFileContentTs()
     {
         $this->exec('bake vue_component Posts --lang ts');
         $this->assertExitSuccess();
         $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS .  'PostInterface.ts');
+        $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostInterface.ts');
+        $this->assertStringContainsString('interface Post {', $content);
+        $this->assertStringContainsString('id: number', $content);
+        $this->assertStringContainsString('title: string', $content);
+    }
+
+    public function testExecuteIndexFileContentTs()
+    {
+        $this->exec('bake vue_component Posts --lang ts');
+        $this->assertExitSuccess();
         $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsIndex.vue');
         $this->assertStringContainsString('<script setup lang="ts">', $content);
         $this->assertStringContainsString('import Post from \'@/types/Post\'', $content);
@@ -82,7 +92,6 @@ class VueComponentCommandTest extends TestCase
     {
         $this->exec('bake vue_component Posts --lang ts');
         $this->assertExitSuccess();
-        $this->assertFileExists(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS .  'PostInterface.ts');
         $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsView.vue');
         $this->assertStringContainsString('<script setup lang="ts">', $content);
         $this->assertStringContainsString('import Post from \'@/types/Post\'', $content);
