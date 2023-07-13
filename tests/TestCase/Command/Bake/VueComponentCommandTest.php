@@ -95,6 +95,22 @@ class VueComponentCommandTest extends TestCase
         $this->assertStringContainsString('<dd>{{ post.id }}</dd>', $content);
     }
 
+    public function testExecuteAddFileContentTs()
+    {
+        $this->exec('bake vue_component Posts --lang ts');
+        $this->assertExitSuccess();
+        $content = file_get_contents(PLUGIN_TESTS . '..' . DS . 'TestApp' . DS . 'VueComponents' . DS . 'PostsAdd.vue');
+        $this->assertStringContainsString('<script setup lang="ts">', $content);
+        $this->assertStringContainsString('import Post from \'@/types/Post\'', $content);
+
+        $this->assertStringContainsString('const post = ref<Post>()', $content);
+        $this->assertStringContainsString('const createNewPost = () => {', $content);
+        $this->assertStringContainsString('.post(`${import.meta.env.VITE_APP_API_URL}post.json`, post.value)', $content);
+        $this->assertStringContainsString('<form @submit.prevent=createNewPost>', $content);
+        $this->assertStringContainsString('<label>title</label>', $content);
+        $this->assertStringContainsString('<input type="text" v-model={{ post.title }} />', $content);
+    }
+
     private function removeTestGeneratedFiles($directoryPath)
     {
         $iterator = new RecursiveIteratorIterator(

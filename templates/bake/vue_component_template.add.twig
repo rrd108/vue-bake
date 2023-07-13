@@ -1,7 +1,36 @@
 <script setup{% if lang == 'ts' %} lang="ts"{% endif %}>
+  import { ref } from 'vue'
+  import axios from 'axios'
+  {% if lang == 'ts' %}import {{singularHumanName}} from '@/types/{{singularHumanName}}'{% endif %} 
+
+  const {{ singularVar }} = ref{% if lang == 'ts' %}<{{singularHumanName}}>{% endif %}()
+
+  const createNew{{ singularHumanName }} = () => {
+    axios
+    .post(`${import.meta.env.VITE_APP_API_URL}{{ singularVar }}.json`, {{ singularVar }}.value)
+    .then(res => {
+        {{ singularVar }}.value = res.data.{{ singularVar }}
+        // TODO notify the user about the successful creation
+        })
+    .catch(err => console.error(err))
+  }
 </script>
 
 <template>
+  <section>
+    <h2>New {{ singularHumanName }}</h2>
+
+    <form @submit.prevent=createNew{{ singularHumanName }}>
+      {% for field in fields %}
+        {% if field != 'id' ~%}
+        <label>{{ field }}</label>
+        <input type="text" v-model={{ '{{ ' ~ singularVar ~ '.' ~ field ~ ' }}' | raw }} />
+        {% endif %}
+      {% endfor ~%}
+
+      <button type="submit">Create</button>
+    </form>
+  </section>
 </template>
 
 <style scoped>
