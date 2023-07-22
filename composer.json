@@ -5,7 +5,8 @@
   "type": "cakephp-plugin",
   "keywords": [
     "cakephp",
-    "plugin"
+    "plugin",
+    "vue"
   ],
   "license": "MIT",
   "require": {
