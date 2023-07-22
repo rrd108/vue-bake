@@ -52,7 +52,7 @@ class VueComponentCommand extends SimpleBakeCommand
         return $parser;
     }
 
-    public function execute(Arguments $args, ConsoleIo $io): null|int
+    public function execute(Arguments $args, ConsoleIo $io): int
     {
         if ($args->hasOption('path')) {
             $this->pathFragment = rtrim($args->getOption('path'), '/') . '/';
