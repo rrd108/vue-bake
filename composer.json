@@ -1,6 +1,7 @@
 {
   "name": "rrd108/vue-bake",
   "description": "CakePHP Plugin for Baking Vue Components",
+  "version": "0.1.0",
   "type": "cakephp-plugin",
   "keywords": [
     "cakephp",
