@@ -24,7 +24,7 @@
       {% for field in fields %}
         {% if field != 'id' ~%}
         <label>{{ field }}</label>
-        <input type="text" v-model={{ '{{ ' ~ singularVar ~ '.' ~ field ~ ' }}' | raw }} />
+        <input type="text" v-model={{ '"' ~ singularVar ~ '.' ~ field ~ '"' | raw }} />
         {% endif %}
       {% endfor ~%}
 
