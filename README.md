@@ -35,7 +35,7 @@ You can install this plugin into your CakePHP application using [composer](https
 The recommended way to install composer packages is:
 
 ```
-composer require rrd108/vue-bake
+composer require --dev rrd108/vue-bake
 ```
 
 Then, to load the plugin either run the following command:
