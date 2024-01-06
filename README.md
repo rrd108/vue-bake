@@ -1,5 +1,9 @@
 # VueBake plugin for CakePHP
 
+Bake VueJs components from CakePHP 5 models.
+
+For CakePHP 4 version see rrd108/vue-bake/tree/cakephp-4
+
 Are you a full stack developer working with the powerful combination of **Vue SPA-s** and **CakePHP** as a REST API backend? If so, we have something special in store for you.
 
 We understand the value of **efficient development processes** and the convenience that **code generation** brings. As avid fans of CakePHP's **bake automatic code generation** capabilities, we noticed a missing piece when it came to **template generation**. That's why we took it upon ourselves to bridge this gap and create the **CakePHP VueBake Plugin**.
