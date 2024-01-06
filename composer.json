@@ -1,7 +1,7 @@
 {
   "name": "rrd108/vue-bake",
   "description": "CakePHP Plugin for Baking Vue Components",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "type": "cakephp-plugin",
   "keywords": [
     "cakephp",
@@ -10,11 +10,11 @@
   ],
   "license": "MIT",
   "require": {
-    "cakephp/cakephp": "^4.0",
-    "cakephp/bake": "^2.0"
+    "cakephp/cakephp": "^5.0",
+    "cakephp/bake": "^3.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8.5"
+    "phpunit/phpunit": "^10.1"
   },
   "autoload": {
     "psr-4": {
