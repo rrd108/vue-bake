@@ -9,11 +9,13 @@ use Cake\Console\ConsoleIo;
 use Cake\Utility\Inflector;
 use Bake\Command\SimpleBakeCommand;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Datasource\ConnectionManager;
 
 class VueComponentCommand extends SimpleBakeCommand
 {
-    public $pathFragment = 'VueComponents/';
-    protected $modelName;
+    public string $pathFragment = 'VueComponents/';
+    protected string $modelName;
+    public string $connection = 'default';
 
     public function __construct()
     {
@@ -59,6 +61,7 @@ class VueComponentCommand extends SimpleBakeCommand
         }
 
         $lang = $args->getOption('lang');
+        $this->connection = $args->getOption('connection');
 
         $this->modelName = $args->getArgument('name');
 
