@@ -38,17 +38,19 @@ The recommended way to install composer packages is:
 composer require rrd108/vue-bake
 ```
 
-## Load the plugin
+Then, to load the plugin either run the following command:
 
-In your `src/Application.php` file, add the following code:
+```
+bin/cake plugin load VueBake
+```
 
-```php
-protected function bootstrapCli(): void
-{
-  // ..
-  // Load more plugins here
-  $this->addPlugin('VueBake');
-}
+or manually add the following line to your app's config/plugins.php:
+
+```
+return [
+  // other plugins
+  'VueBake' => [],
+];
 ```
 
 ## Bake VueJs components
