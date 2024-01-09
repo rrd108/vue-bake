@@ -9,13 +9,12 @@ use Cake\Console\ConsoleIo;
 use Cake\Utility\Inflector;
 use Bake\Command\SimpleBakeCommand;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Datasource\ConnectionManager;
 
 class VueComponentCommand extends SimpleBakeCommand
 {
-    public string $pathFragment = 'VueComponents/';
+    public $pathFragment = 'VueComponents/';
     protected string $modelName;
-    public string $connection = 'default';
+    // public string $connection = 'default';
 
     public function __construct()
     {
