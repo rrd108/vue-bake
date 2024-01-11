@@ -99,7 +99,7 @@ class VueComponentCommandTest extends TestCase
         $this->assertStringContainsString('const post = ref<Post>()', $content);
         $this->assertStringContainsString('.then(res => (post.value = res.data.post))', $content);
         $this->assertStringContainsString('const route = useRoute()', $content);
-        $this->assertStringContainsString('.get(`${import.meta.env.VITE_APP_API_URL}post/${route.params.id}.json`)', $content);
+        $this->assertStringContainsString('.get(`${import.meta.env.VITE_APP_API_URL}posts/${route.params.id}.json`)', $content);
         $this->assertStringContainsString('<dt>id</dt>', $content);
         $this->assertStringContainsString('<dd>{{ post.id }}</dd>', $content);
     }
@@ -114,7 +114,7 @@ class VueComponentCommandTest extends TestCase
 
         $this->assertStringContainsString('const post = ref<Post>()', $content);
         $this->assertStringContainsString('const createNewPost = () => {', $content);
-        $this->assertStringContainsString('.post(`${import.meta.env.VITE_APP_API_URL}post.json`, post.value)', $content);
+        $this->assertStringContainsString('.post(`${import.meta.env.VITE_APP_API_URL}posts.json`, post.value)', $content);
         $this->assertStringContainsString('<form @submit.prevent=createNewPost>', $content);
         $this->assertStringContainsString('<label>title</label>', $content);
         $this->assertStringContainsString('<input type="text" v-model="post.title" />', $content);
@@ -130,7 +130,7 @@ class VueComponentCommandTest extends TestCase
 
         $this->assertStringContainsString('const post = ref<Post>()', $content);
         $this->assertStringContainsString('const editPost = () => {', $content);
-        $this->assertStringContainsString('.put(`${import.meta.env.VITE_APP_API_URL}post.json`, post.value)', $content);
+        $this->assertStringContainsString('.put(`${import.meta.env.VITE_APP_API_URL}posts.json`, post.value)', $content);
         $this->assertStringContainsString('<form @submit.prevent=editPost>', $content);
         $this->assertStringContainsString('<label>title</label>', $content);
         $this->assertStringContainsString('<input type="text" v-model="post.title" />', $content);

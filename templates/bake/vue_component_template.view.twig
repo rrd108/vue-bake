@@ -9,7 +9,7 @@
   const {{ singularVar }} = ref{% if lang == 'ts' %}<{{singularHumanName}}>{% endif %}()
 
   axios
-    .get(`${import.meta.env.VITE_APP_API_URL}{{ singularVar }}/${route.params.id}.json`)
+    .get(`${import.meta.env.VITE_APP_API_URL}{{ pluralVar }}/${route.params.id}.json`)
     .then(res => ({{ singularVar }}.value = res.data.{{ singularVar }}))
     .catch(err => console.error(err))
 </script>

@@ -1,12 +1,13 @@
 {
   "name": "rrd108/vue-bake",
   "description": "CakePHP Plugin for Baking Vue Components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "cakephp-plugin",
   "keywords": [
     "cakephp",
     "plugin",
-    "vue"
+    "vue",
+    "vuejs"
   ],
   "license": "MIT",
   "require": {
